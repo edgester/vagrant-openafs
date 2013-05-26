@@ -15,10 +15,17 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", 'on']
   end
 
-  # Enable provisioning with Puppet stand alone.
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = "puppet/manifests"
-    puppet.manifest_file  = "cellserver.pp"
-    puppet.module_path = "puppet/modules"
+  ################ begin cell server ##############
+  config.vm.define :cellserver do |cellserv|
+    cellserv.vm.box = "cellserver"
+
+    # Enable provisioning with Puppet stand alone.
+    cellserv.vm.provision :puppet do |puppet|
+      puppet.manifests_path = "puppet/manifests"
+      puppet.manifest_file  = "cellserver.pp"
+      puppet.module_path = "puppet/modules"
+    end
   end
+  ################ end cell server ##############
+
 end
