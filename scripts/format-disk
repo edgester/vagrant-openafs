@@ -1,0 +1,29 @@
+#!/bin/bash
+# format /sdb1 as /vicepa if it isn't formatted already
+
+# check for new partitions
+partprobe
+
+for disk in /dev/sd[b-z] ; do
+    # 
+    vicepdir=vicep`echo ${disk: -1:1} | tr [b-z] [a-y]`
+    echo "device=${disk}1"
+    echo "mountpoint=$vicepdir"
+    if [ -b ${disk} ]; then
+        # disk exists
+        if [ ! -b ${disk}1 ]; then
+            echo "${disk} is not partitioned. Partitioning now..."
+            parted -a optimal --script ${disk} mklabel gpt mkpart primary ext3 1 100%
+            echo "formatting ${disk}1"
+            mke2fs -q -j -L${vicepdir} ${disk}1
+            tune2fs -c 0 -i 0 ${disk}1
+        fi
+
+        # create & configure mountpoint
+        mkdir -p /$vicepdir
+        chmod 700 /$vicepdir
+        grep -qs ^LABEL=$vicepdir /etc/fstab || echo "LABEL=$vicepdir /$vicepdir ext3 defaults 0 0" >> /etc/fstab
+    fi
+done
+
+mount -a

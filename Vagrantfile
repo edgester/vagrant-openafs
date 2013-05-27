@@ -38,6 +38,8 @@ Vagrant.configure("2") do |config|
     cellserv.vm.box = "precise32"
     cellserv.vm.hostname = "cellserver"
 
+    cellserv.vm.provision :shell, :path => "scripts/format-disk"
+
     # Enable provisioning with Puppet stand alone.
     cellserv.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"
