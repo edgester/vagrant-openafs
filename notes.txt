@@ -1,0 +1,18 @@
+
+apt-get update
+
+# apt-get -y install linux-headers-generic-pae
+apt-get -y install linux-headers-3.2.0-23-generic-pae
+
+DEBIAN_FRONTEND=noninteractive apt-get -y install krb5-user krb5-admin-server krb5-kdc
+
+DEBIAN_FRONTEND=noninteractive apt-get -y install openafs-fileserver openafs-krb5 openafs-client krb5-user
+
+
+/usr/lib/dkms/dkms_autoinstaller start
+
+service openafs-client restart
+
+debconf-show openafs-client
+dpkg-reconfigure openafs-client
+
