@@ -26,7 +26,8 @@ Vagrant.configure("2") do |config|
 
   ################ begin cell server ##############
   config.vm.define :cellserver do |cellserv|
-    cellserv.vm.box = "cellserver"
+    cellserv.vm.box = "precise32"
+    cellserv.vm.hostname = "cellserver"
 
     # Enable provisioning with Puppet stand alone.
     cellserv.vm.provision :puppet do |puppet|
