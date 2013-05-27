@@ -1,18 +1,25 @@
 
 apt-get update
 
-# apt-get -y install linux-headers-generic-pae
-apt-get -y install linux-headers-3.2.0-23-generic-pae
+## apt-get -y install linux-headers-generic-pae
+#apt-get -y install linux-headers-3.2.0-23-generic-pae
 
 DEBIAN_FRONTEND=noninteractive apt-get -y install krb5-user krb5-admin-server krb5-kdc
 
 DEBIAN_FRONTEND=noninteractive apt-get -y install openafs-fileserver openafs-krb5 openafs-client krb5-user
 
+#apt-get -y install dkms
 
-/usr/lib/dkms/dkms_autoinstaller start
+#/usr/lib/dkms/dkms_autoinstaller start
+
+dpkg -i /vagrant/deb/openafs-dkms_1.6.1_all.deb
 
 service openafs-client restart
 
 debconf-show openafs-client
 dpkg-reconfigure openafs-client
 
+#################
+# apt-get install build-essential debhelper
+# dkms mkdeb openafs/1.6.1 --binaries-only
+# 
