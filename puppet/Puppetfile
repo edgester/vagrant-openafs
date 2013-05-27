@@ -1,0 +1,10 @@
+forge "http://forge.puppetlabs.com"
+
+mod 'puppetlabs/stdlib'
+mod 'puppetlabs/apt'
+
+mod 'vagrant',
+  :git => '/home/jwedgeco/veewee/boxes/modules.local/vagrant'
+
+mod 'openafs',
+  :git => '/home/jwedgeco/veewee/boxes/modules.local/openafs'
