@@ -13,6 +13,15 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", "512"]
     v.customize ["modifyvm", :id, "--natdnshostresolver1", 'on']
+
+    # add a second virtual hard drive with 5GB of space (/vicepa)
+    cellserverVicepa="virtual-hdd/cellserv-vicepa.vmdk"
+    if ( ! File.exist?(cellserverVicepa) )
+      v.customize ["createhd", "--filename", cellserverVicepa, "--size", "80000"]
+    end
+    v.customize ["storageattach", :id, "--storagectl", "SATA Controller", 
+                 "--port", "1", "--device", "0",
+                 "--type", "hdd", "--medium", cellserverVicepa ]
   end
 
   ################ begin cell server ##############
