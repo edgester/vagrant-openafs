@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
   ################ begin cell server ##############
   config.vm.define :cellserver do |cellserv|
     cellserv.vm.box = "precise32"
-    cellserv.vm.hostname = "cellserver"
+    cellserv.vm.hostname = "cellserver.example.com"
 
     cellserv.vm.provision :shell, :path => "scripts/format-disk"
 
