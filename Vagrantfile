@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--memory", "512"]
     v.customize ["modifyvm", :id, "--natdnshostresolver1", 'on']
 
-    # add a second virtual hard drive with 5GB of space (/vicepa)
+    # add a second virtual hard drive (/vicepa)
     cellserverVicepa="virtual-hdd/cellserv-vicepa.vmdk"
     if ( ! File.exist?(cellserverVicepa) )
       v.customize ["createhd", "--filename", cellserverVicepa, "--size", "80000"]
@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
                  "--port", "1", "--device", "0",
                  "--type", "hdd", "--medium", cellserverVicepa ]
 
-    # add a third virtual hard drive with 5GB of space (/vicepa)
+    # add a third virtual hard drive (/vicepb)
     cellserverVicepb="virtual-hdd/cellserv-vicepb.vmdk"
     if ( ! File.exist?(cellserverVicepb) )
       v.customize ["createhd", "--filename", cellserverVicepb, "--size", "80000"]
