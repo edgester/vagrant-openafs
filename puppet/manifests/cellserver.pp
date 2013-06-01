@@ -3,9 +3,10 @@ include vagrant::package_cache
 include kerberos::server::kadmind
 
 class {'kerberos::client':
-  realm        => 'EXAMPLE.ORG',
-  kdc          => ['cellserver.example.org'],
-  admin_server => ['cellserver.example.org'],
+  realm             => 'EXAMPLE.ORG',
+  kdc               => ['cellserver.example.org'],
+  admin_server      => ['cellserver.example.org'],
+  allow_weak_crypto => true,
 }
 
 class {'kerberos::server::kdc':
