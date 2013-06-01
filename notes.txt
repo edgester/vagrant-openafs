@@ -22,4 +22,6 @@ dpkg-reconfigure openafs-client
 #################
 # apt-get install build-essential debhelper
 # dkms mkdeb openafs/1.6.1 --binaries-only
-# 
+#
+
+kadmin.local -q addprinc admin
