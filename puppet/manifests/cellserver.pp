@@ -4,8 +4,8 @@ include kerberos::server::kadmind
 
 class {'kerberos::client':
   realm        => 'EXAMPLE.ORG',
-  kdc          => ['192.168.44.44'],
-  admin_server => ['192.168.44.44'],
+  kdc          => ['cellserver.example.org'],
+  admin_server => ['cellserver.example.org'],
 }
 
 class {'kerberos::server::kdc':
@@ -13,6 +13,11 @@ class {'kerberos::server::kdc':
 }
 
 File { owner => 0, group => 0, mode => 0644 }   
+
+host { 'cellserver.example.com':
+    ip => '192.168.44.44',
+    host_aliases => 'cellserver',
+}
 
 #File['/var/cache/apt'] -> Class['apt::update']
 
