@@ -6,8 +6,8 @@ mod 'puppetlabs/apt'
 mod 'vagrant',
   :git => '/home/jwedgeco/veewee/boxes/modules.local/vagrant'
 
-mod 'edgester/krb5',
-  :git => '/home/jwedgeco/veewee/boxes/modules.local/krb5'
+mod 'edgester/kerberos',
+  :git => '/home/jwedgeco/veewee/boxes/modules.local/kerberos'
 
 mod 'edgester/openafs',
   :git => '/home/jwedgeco/veewee/boxes/modules.local/openafs'

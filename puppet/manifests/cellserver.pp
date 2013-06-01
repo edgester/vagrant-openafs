@@ -1,8 +1,14 @@
 
 include vagrant::package_cache
-include krb5::server::kadmind
+include kerberos::server::kadmind
 
-class {'krb5::server::kdc':
+class {'kerberos::client':
+  realm        => 'EXAMPLE.ORG',
+  kdc          => ['192.168.44.44'],
+  admin_server => ['192.168.44.44'],
+}
+
+class {'kerberos::server::kdc':
   realm => 'EXAMPLE.ORG',
 }
 
