@@ -15,10 +15,17 @@ class {'kerberos::server::kdc':
 
 File { owner => 0, group => 0, mode => 0644 }   
 
-host { 'cellserver.example.com':
+host { 'cellserver.example.org':
     ip => '192.168.44.44',
     host_aliases => 'cellserver',
 }
 
 #File['/var/cache/apt'] -> Class['apt::update']
 
+# install rng-utils to speed up kerberbos DB generation
+package { 'rng-tools' :
+  ensure => present,
+}
+package { 'curl' :
+  ensure => present,
+}

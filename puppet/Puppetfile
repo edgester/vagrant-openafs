@@ -7,7 +7,7 @@ mod 'vagrant',
   :git => '/home/jwedgeco/veewee/boxes/modules.local/vagrant'
 
 mod 'edgester/kerberos',
-  :git => '/home/jwedgeco/veewee/boxes/modules.local/kerberos'
+  :git => 'git://github.com/edgester/puppet-kerberos.git'
 
 mod 'edgester/openafs',
-  :git => '/home/jwedgeco/veewee/boxes/modules.local/openafs'
+  :git => 'git://github.com/edgester/puppet-openafs.git'
