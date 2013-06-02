@@ -20,6 +20,10 @@ host { 'cellserver.example.org':
     host_aliases => 'cellserver',
 }
 
+class {'openafs::server::fileserver':
+  cell => 'example.org',
+}
+
 #File['/var/cache/apt'] -> Class['apt::update']
 
 # install rng-utils to speed up kerberbos DB generation
