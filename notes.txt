@@ -24,4 +24,18 @@ dpkg-reconfigure openafs-client
 # dkms mkdeb openafs/1.6.1 --binaries-only
 #
 
-kadmin.local -q addprinc admin
+# create the kerberos DB
+cd /var/lib/krb5kdc && kdb5_util -r EXAMPLE.ORG create -s
+
+# create an admin user
+kadmin.local -q "addprinc admin"
+
+kadmin.local -q "addprinc -randkey afs/example.org"
+kadmin.local -q "ktadd -k /etc/afs.keytab -e des-cbc-crc:afs3 afs/cell.example.com"
+chown root:root /etc/afs.keytab
+chmod 600 /etc/afs.keytab
+
+bos setcellname <server> <cellname> -noauth
+bos addhost <server> <host> -noauth
+
+## cell names must be all lowercase and not more than 64 characters
