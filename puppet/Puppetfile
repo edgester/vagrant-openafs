@@ -4,7 +4,7 @@ mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
 
 mod 'vagrant',
-  :git => '/home/jwedgeco/veewee/boxes/modules.local/vagrant'
+  :git => 'git://github.com/edgester/puppet-vagrant.git'
 
 mod 'edgester/kerberos',
   :git => 'git://github.com/edgester/puppet-kerberos.git'
