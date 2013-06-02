@@ -20,8 +20,9 @@ host { 'cellserver.example.org':
     host_aliases => 'cellserver',
 }
 
-class {'openafs::server::fileserver':
+class {'openafs::server':
   cell => 'example.org',
+  is_dbserver => 'true',
 }
 
 #File['/var/cache/apt'] -> Class['apt::update']
