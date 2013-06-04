@@ -25,6 +25,12 @@ class {'openafs::server':
   is_dbserver => 'true',
 }
 
+class {'openafs::client':
+  cell         => 'example.org',
+  db_hostnames => ['cellserver.example.org'],
+  db_ips       => ['192.168.44.44'],
+}
+
 #File['/var/cache/apt'] -> Class['apt::update']
 
 # install rng-utils to speed up kerberbos DB generation
