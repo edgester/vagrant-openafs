@@ -31,6 +31,15 @@ class {'openafs::client':
   db_ips       => ['192.168.44.44'],
 }
 
+# prevent the file server from listening on the NAT interface
+file { '/var/lib/openafs/local/NetRestrict':
+  ensure  => 'file',
+  content => "$::ipaddress_eth0\n",
+  before  => Service['openafs-fileserver'],
+  require => Package[ $openafs::params::fileserver_packages ],
+  notify  => Service['openafs-fileserver'],
+}
+
 #File['/var/cache/apt'] -> Class['apt::update']
 
 # install rng-utils to speed up kerberbos DB generation
