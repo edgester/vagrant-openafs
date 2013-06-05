@@ -1,0 +1,3 @@
+#!/bin/bash
+fs_options="-p 23 -busyat 600 -rxpck 400 -s 1200 -l 1200 -cb 65535 -b 240 -vc 1200"
+bos create `hostname`  dafs dafs -cmd "/usr/lib/openafs/dafileserver $fs_options" -cmd /usr/lib/openafs/davolserver -cmd /usr/lib/openafs/salvageserver -cmd /usr/lib/openafs/dasalvager -localauth
