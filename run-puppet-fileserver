@@ -1,0 +1,1 @@
+puppet apply --modulepath /vagrant/puppet/modules /vagrant/puppet/manifests/fileserver.pp
