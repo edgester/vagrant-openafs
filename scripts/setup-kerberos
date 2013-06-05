@@ -1,0 +1,13 @@
+#!/bin/bash
+# finish the kerberos setup
+
+REALM_NAME="EXAMPLE.ORG"
+
+if [ ! -f /var/lib/krb5kdc/principal ]; then
+    echo "Creating the kerberos DB..."
+    cd /var/lib/krb5kdc && kdb5_util -r $REALM_NAME create -s
+    service krb5-kdc restart
+    echo ""
+    echo "Creating a principal for the user 'admin'..."
+    kadmin.local -q "addprinc admin"
+fi

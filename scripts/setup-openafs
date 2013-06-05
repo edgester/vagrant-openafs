@@ -1,0 +1,74 @@
+#!/bin/bash
+# finish the openafs server setup - this is somewhat rough.
+# assumes MIT kerberos & ubuntu
+#
+# Depends on the afs-newcell and afs-rootcell scripts that come with
+# Debian/Ubuntu
+
+# User configuration
+CELL_NAME="example.org"
+ADMIN_USER="admin"
+
+# OS file locations
+AFS_KEYTAB="/etc/afs.keytab"
+THISCELL="/etc/openafs/server/ThisCell"
+CELLSERVDB="/etc/openafs/server/CellServDB"
+BOSCONFIG="/var/lib/openafs/local/BosConfig"
+KEYFILE="/etc/openafs/server/KeyFile"
+PRDB="/var/lib/openafs/db/prdb.DB0"
+
+PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/afs/bin"
+HOSTNAME=`hostname -f`
+
+if [ -f /var/lib/krb5kdc/principal ]; then
+    if [ ! -f $AFS_KEYTAB ]; then
+        echo "Creating the AFS keytab"
+        kadmin.local -q "addprinc -randkey afs/$CELL_NAME"
+        kadmin.local -q "ktadd -k $AFS_KEYTAB -e des-cbc-crc:afs3 afs/$CELL_NAME"
+        chown root:root $AFS_KEYTAB
+        chmod 600 $AFS_KEYTAB
+    else
+        echo "AFS keytab already created. Skipping..."
+    fi
+    
+    if [ ! -f $KEYFILE ]; then
+        # set up the KeyFile before running bosserver to avoid using -noauth
+        KVNO=`klist -kt /etc/afs.keytab  | tail -n1 | awk '{print $1}'`
+        PRINCIPAL=`klist -kt /etc/afs.keytab  | tail -n1 | awk '{print $4}'`
+        service openafs-fileserver stop
+        asetkey add $KVNO $AFS_KEYTAB $PRINCIPAL
+    else
+        echo "AFS KeyFile already created. Skipping..."
+    fi
+
+    if [ ! -f $PRDB ]; then
+        service openafs-client stop
+        service openafs-fileserver stop
+        echo "Running afs-newcell to set things up..."
+        afs-newcell --requirements-met --admin $ADMIN_USER
+    else
+        echo "Cell is already created. Skipping..."
+    fi
+    
+    service openafs-fileserver restart
+    echo "Waiting for openafs server restart"
+    sleep 10
+    service openafs-client restart
+
+    # set up the root volumes
+    vos ex root.cell -noauth > /dev/null
+    if [ $? -ne 0 ]; then
+        LOGGEDIN=0
+        while [ $LOGGEDIN -eq 0 ]; do
+            echo "Type in the password for $ADMIN_USER"
+            kinit $ADMIN_USER && LOGGEDIN=1
+        done
+        aklog
+
+        afs-rootvol --requirements-met --server $HOSTNAME --partition a
+    fi
+    
+else
+    echo "Kerberos is not set up. Run 'setup-kerberos' first."
+fi
+
