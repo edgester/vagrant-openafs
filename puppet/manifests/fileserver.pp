@@ -9,10 +9,6 @@ class {'kerberos::client':
   allow_weak_crypto => true,
 }
 
-class {'kerberos::server::kdc':
-  realm => 'EXAMPLE.ORG',
-}
-
 File { owner => 0, group => 0, mode => 0644 }   
 
 host { 'cellserver.example.org':
@@ -27,7 +23,7 @@ host { 'fileserver.example.org':
 
 class {'openafs::server':
   cell => 'example.org',
-  is_dbserver => 'true',
+  is_dbserver => 'false',
 }
 
 class {'openafs::client':
