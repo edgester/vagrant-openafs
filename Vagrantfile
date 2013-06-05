@@ -15,45 +15,45 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", 'on']
   end
 
-  ################ begin cell server ##############
-  config.vm.define :cellserver do |cellserv|
-    cellserv.vm.box = "precise32"
-    cellserv.vm.hostname = "cellserver.example.org"
-    cellserv.vm.network :private_network, ip: "192.168.44.44"
+  ################ begin db server ##############
+  config.vm.define :dbserver do |dbserv|
+    dbserv.vm.box = "precise32"
+    dbserv.vm.hostname = "dbserver.example.org"
+    dbserv.vm.network :private_network, ip: "192.168.44.44"
 
-    cellserv.vm.provision :shell, :path => "scripts/format-disk"
+    dbserv.vm.provision :shell, :path => "scripts/format-disk"
 
     # Enable provisioning with Puppet stand alone.
-    cellserv.vm.provision :puppet do |puppet|
+    dbserv.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"
-      puppet.manifest_file  = "cellserver.pp"
+      puppet.manifest_file  = "dbserver.pp"
       puppet.module_path = "puppet/modules"
     end
 
     # customize virtualbox settings
-    cellserv.vm.provider "virtualbox" do |v|
+    dbserv.vm.provider "virtualbox" do |v|
       
       # add a second virtual hard drive (/vicepa)
-      cellserverVicepa="virtual-hdd/cellserv-vicepa.vmdk"
-      if ( ! File.exist?(cellserverVicepa) )
-        v.customize ["createhd", "--filename", cellserverVicepa, "--size", "80000"]
+      dbserverVicepa="virtual-hdd/dbserv-vicepa.vmdk"
+      if ( ! File.exist?(dbserverVicepa) )
+        v.customize ["createhd", "--filename", dbserverVicepa, "--size", "80000"]
       end
       v.customize ["storageattach", :id, "--storagectl", "SATA Controller",
                    "--port", "1", "--device", "0",
-                   "--type", "hdd", "--medium", cellserverVicepa ]
+                   "--type", "hdd", "--medium", dbserverVicepa ]
       
       # add a third virtual hard drive (/vicepb)
-      cellserverVicepb="virtual-hdd/cellserv-vicepb.vmdk"
-      if ( ! File.exist?(cellserverVicepb) )
-        v.customize ["createhd", "--filename", cellserverVicepb, "--size", "80000"]
+      dbserverVicepb="virtual-hdd/dbserv-vicepb.vmdk"
+      if ( ! File.exist?(dbserverVicepb) )
+        v.customize ["createhd", "--filename", dbserverVicepb, "--size", "80000"]
       end
       v.customize ["storageattach", :id, "--storagectl", "SATA Controller",
                    "--port", "2", "--device", "0",
-                   "--type", "hdd", "--medium", cellserverVicepb ]
+                   "--type", "hdd", "--medium", dbserverVicepb ]
     end
 
   end
-  ################ end cell server ##############
+  ################ end db server ##############
 
   ################ begin file server ##############
   config.vm.define :fileserver do |fileserv|

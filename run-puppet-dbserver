@@ -1,1 +1,1 @@
-puppet apply --modulepath /vagrant/puppet/modules /vagrant/puppet/manifests/cellserver.pp
+puppet apply --modulepath /vagrant/puppet/modules /vagrant/puppet/manifests/dbserver.pp

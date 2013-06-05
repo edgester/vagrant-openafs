@@ -4,16 +4,16 @@ include kerberos::server::kadmind
 
 class {'kerberos::client':
   realm             => 'EXAMPLE.ORG',
-  kdc               => ['cellserver.example.org'],
-  admin_server      => ['cellserver.example.org'],
+  kdc               => ['dbserver.example.org'],
+  admin_server      => ['dbserver.example.org'],
   allow_weak_crypto => true,
 }
 
 File { owner => 0, group => 0, mode => 0644 }   
 
-host { 'cellserver.example.org':
+host { 'dbserver.example.org':
     ip => '192.168.44.44',
-    host_aliases => 'cellserver',
+    host_aliases => 'dbserver',
 }
 
 host { 'fileserver.example.org':
@@ -28,7 +28,7 @@ class {'openafs::server':
 
 class {'openafs::client':
   cell         => 'example.org',
-  db_hostnames => ['cellserver.example.org'],
+  db_hostnames => ['dbserver.example.org'],
   db_ips       => ['192.168.44.44'],
 }
 
