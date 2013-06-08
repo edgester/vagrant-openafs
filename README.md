@@ -57,7 +57,7 @@ Once in the VM, setup kerberos and set the stash password and "admin" password:
 ## Gotchas
 
   * The puppet modules take the realmname, cellname and DB servers as
-    parameters. The IP's and hostnames for DB servers shuold be in the
+    parameters. The IP's and hostnames for DB servers should be in the
     same positino in the array.
 
   * The files in /vagrant/scripts have hard-coded cell and realm
