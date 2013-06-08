@@ -4,10 +4,10 @@ mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
 
 mod 'vagrant',
-  :git => 'git://github.com/edgester/puppet-vagrant.git'
+  :git => 'git://github.com/edgester/puppet-module-vagrant.git'
 
 mod 'edgester/kerberos',
-  :git => 'git://github.com/edgester/puppet-kerberos.git'
+  :git => 'git://github.com/edgester/puppet-module-kerberos.git'
 
 mod 'edgester/openafs',
-  :git => 'git://github.com/edgester/puppet-openafs.git'
+  :git => 'git://github.com/edgester/puppet-module-openafs.git'
