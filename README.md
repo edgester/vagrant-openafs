@@ -39,7 +39,7 @@ Once in the VM, setup kerberos and set the stash password and "admin" password:
 
  You now have a working OpenAFS cell in a single VM.
 
- To add a second (or 3rd, 4th,...) file server, run the following:
+ To add a second file server, run the following:
  
     # while in the dbserver VM as root
     cp  /etc/openafs/server/* /vagrant/tmp
