@@ -25,7 +25,7 @@ Install the librarian-puppet module
     librarian-puppet install
     cd ..
     vagrant up dbserver
-    vagrant ssh
+    vagrant ssh dbserver
 
 Once in the VM, setup kerberos and set the stash password and "admin" password:
 
