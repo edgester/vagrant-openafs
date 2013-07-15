@@ -26,6 +26,7 @@ Install the librarian-puppet module
     cd puppet
     librarian-puppet install
     cd ..
+    mkdir -p cache/apt
     vagrant up dbserver
     vagrant ssh dbserver
 
