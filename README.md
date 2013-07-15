@@ -21,7 +21,9 @@ Using [rvm](https://rvm.io/rvm/install/) is recommended.
 Install the librarian-puppet module
 
     git clone git://github.com/edgester/vagrant-openafs.git
-    cd vagrant-openafs/puppet
+    cd vagrant-openafs
+    bundle install
+    cd puppet
     librarian-puppet install
     cd ..
     vagrant up dbserver
