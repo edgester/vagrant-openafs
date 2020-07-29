@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    facter (1.7.2)
+    facter (1.7.6)
     hiera (1.2.1)
       json_pure
     json (2.3.1)
